@@ -17,15 +17,15 @@ SoftUni React Course Project
 ## 3. Create Service Layer
 - [x] Service layer architecture disccusion
 - [x] Abstract requester
-- [] Add games api
-- [] Preseed practice server
+- [x] Add cats api
+- [x] Preseed practice server
 ## 4. Page Implementations
-- [] Game list
+- [] Cat list
 - [] Details
   - [] Details link
   - [] Details route
   - [] Api function - getOne
-- [] Home - Latest Games
+- [] Home - Latest Cats
 ## 5. Comments (Advanced)
 - [] Create service for nested resource `comments`
 - [] Post comment to server
