@@ -5,13 +5,13 @@ export function useGetAllCats() {
     const [cats, setCats] = useState([]);
 
     useEffect(() => {
-        (async () =>{
+        (async () => {
             const result = await catsAPI.getAll();
-            setCats(result)
+            setCats(result);
         })();
     }, []);
 
-return [ cats, setCats];
+    return [cats, setCats];
 
 }
 
@@ -23,8 +23,15 @@ export function useGetOneCats(catId) {
             setCat(result);
         })();
     }, [catId]);
-return[
-    cat,
-    setCat,
-];
+
+    return [
+        cat,
+        setCat,
+    ];
 }
+
+export function useCreateCat() {
+    const catCreateHandler = (catData) => catsAPI.create(catData);
+    return catCreateHandler;
+}
+
