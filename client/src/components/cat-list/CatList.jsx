@@ -14,10 +14,11 @@ const [cats, setCats] = useState([]);
         <section id="catalog-page">
             <h1>All Games</h1>
             {/* <!-- Display div: with information about every game (if any) --> */}
-          {cats.map(cat => <CatListItem key={cat._id} {...cat} />)}
-
-            {/* <!-- Display paragraph: If there is no games  --> */}
-            <h3 className="no-articles">No articles yet</h3>
+         {cats.length > 0
+         ?cats.map(cat => <CatListItem key={cat._id} {...cat} />)
+         :  <h3 className="no-articles">No cats yet</h3>
+         }
+           
         </section>
     );
 }
