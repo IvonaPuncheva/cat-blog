@@ -51,7 +51,7 @@ SoftUni React Course Project
 - [x] Register
   - [x] Add form validation
 - [ ] Logout
-- [ ] Authorized Request
+- [x] Authorized Request
 ## 8. UI Implementation
 - [ ] Dynamic navigation
 - [ ] Create cat
