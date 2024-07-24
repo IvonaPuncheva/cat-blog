@@ -33,9 +33,9 @@ SoftUni React Course Project
 - [x] Add comments in the component
 - [x] Clear form
 ## 6. API Hooks
+- [x] Form Hook
 - [ ] CatAPI Hooks
 - [ ] Comment Hooks
-- [ ] Form Hook
 ## 7.Authentication
 - [ ] Auth API
 - [ ] Auth API Hooks
@@ -48,3 +48,4 @@ SoftUni React Course Project
 - [ ] Create cat
   - [ ]  API function
   - [ ]  Create hook
+  - [ ]  Latest cats
