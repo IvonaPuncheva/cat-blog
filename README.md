@@ -37,12 +37,14 @@ SoftUni React Course Project
 - [x] CatAPI Hooks
 - [ ] Comment Hooks
 ## 7.Authentication
-- [] Auth API
-- [] Auth API Hooks
+- [x] Auth API
+- [x] Auth API Hooks
 - [ ] Auth state & context
+- [x] Token management
 - [x] Login
 - [ ] Register
 - [ ] Logout
+- [ ] Authorized Request
 ## 8. UI Implementation
 - [ ] Dynamic navigation
 - [ ] Create cat
