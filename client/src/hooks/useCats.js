@@ -14,3 +14,17 @@ export function useGetAllCats() {
 return [ cats, setCats];
 
 }
+
+export function useGetOneCats(catId) {
+    const [cat, setCat] = useState({});
+    useEffect(() => {
+        (async () => {
+            const result = await catsAPI.getOne(catId);
+            setCat(result);
+        })();
+    }, [catId]);
+return[
+    cat,
+    setCat,
+];
+}

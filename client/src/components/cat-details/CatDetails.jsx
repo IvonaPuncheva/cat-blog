@@ -1,21 +1,16 @@
-import { useEffect, useState } from "react";
-import catsAPI from "../../api/catsAPI";
+import {  useState } from "react";
 import { useParams } from "react-router-dom";
 import commentsAPI from "../../api/commentsAPI";
+import { useGetOneCats } from "../../hooks/useCats";
 
 
 export default function CatDetails() {
-    const [cat, setCat] = useState({});
+    const { catId } = useParams()
+    const [cat, setCat] = useGetOneCats(catId);
     const [username, setUserName] = useState('');
     const [comment, setComment] = useState('');
-    const { catId } = useParams()
+  
 
-    useEffect(() => {
-        (async () => {
-            const result = await catsAPI.getOne(catId);
-            setCat(result);
-        })();
-    }, []);
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
