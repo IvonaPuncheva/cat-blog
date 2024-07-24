@@ -1,10 +1,18 @@
 {
-    "6012c542-38e1-4660-ba40-1b109c40cb2f": {
-        "title": "Лъки",
-        "category": "кръстоска",
-        "maxLevel": "6",
-        "imageUrl": "https://th-thumbnailer.cdn-si-edu.com/pImJPOHlQAj-DscZe1VLnXfOfeQ=/1072x720/filters:no_upscale():focal(1061x707:1062x708)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/55/95/55958815-3a8a-4032-ac7a-ff8c8ec8898a/gettyimages-1067956982.jpg",
-        "summary": "Мъркащия Лъки е чаровен и любопитен котарак, който обича приключенията и гушкането. Той е част от нашето семейство от 5 години. Известен е със своята красива козина и големи зелени очи. В свободното си време обича да играе с играчки и да изследва всяко кътче от дома.",
-        "_id": "6012c542-38e1-4660-ba40-1b109c40cb2f"
-    }
+"db87463a-c4ae-4743-93de-35101d0bcd59":{
+	"title": "Лъки",
+	"category": "кръстоска",
+	"maxLevel": "6",
+	"imageUrl": "https://th-thumbnailer.cdn-si-edu.com/pImJPOHlQAj-DscZe1VLnXfOfeQ=/1072x720/filters:no_upscale():focal(1061x707:1062x708)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/55/95/55958815-3a8a-4032-ac7a-ff8c8ec8898a/gettyimages-1067956982.jpg",
+	"summary": "Мъркащия Лъки е чаровен и любопитен котарак, който обича приключенията и гушкането. Той е част от нашето семейство от 5 години. Известен е със своята красива козина и големи зелени очи. В свободното си време обича да играе с играчки и да изследва всяко кътче от дома.",
+	"_id": "db87463a-c4ae-4743-93de-35101d0bcd59"
+},
+
+"cbc0b2fb-a265-4083-b6f8-07f5940ca436":{	
+    "title": "Шушка",
+	"category": "кръстоска",
+	"maxLevel": "1",
+	"imageUrl": "https://static.webcafe.bg/uploads/images/41/3741/253741/768x432.jpg?_=1676712571",
+	"summary": "Малка и рижава",
+	"_id": "cbc0b2fb-a265-4083-b6f8-07f5940ca436"}
 }

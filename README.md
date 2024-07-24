@@ -20,15 +20,15 @@ SoftUni React Course Project
 - [x] Add cats api
 - [x] Preseed practice server
 ## 4. Page Implementations
-- [] Cat list
-- [] Details
-  - [] Details link
-  - [] Details route
-  - [] Api function - getOne
-- [] Home - Latest Cats
+- [x] Cat list
+- [x] Details
+  - [x] Details link
+  - [x] Details route
+  - [x] Api function - getOne
+- [x] Home - Latest Cats
 ## 5. Comments (Advanced)
-- [] Create service for nested resource `comments`
-- [] Post comment to server
-- [] Read comments from server
-- [] Add comments in the component
-- [] Clear form
+- [x] Create service for nested resource `comments`
+- [x] Post comment to server
+- [x] Read comments from server
+- [x] Add comments in the component
+- [x] Clear form

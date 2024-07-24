@@ -6,6 +6,7 @@ import Register from "./components/register/Register"
 import Login from "./components/login/Login"
 import CatList from "./components/cat-list/CatList"
 import CatCreate from "./components/cat-create/CatCreate"
+import CatDetails from "./components/cat-details/CatDetails"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
     <Route path='/login' element={<Login />} />
     <Route path='/register' element={<Register />} />
     <Route path='/cats' element={<CatList />} />
+    <Route path='/cats/:catId/details' element={<CatDetails />} />
     <Route path='/cats/create' element={<CatCreate />} />
 
   </Routes>

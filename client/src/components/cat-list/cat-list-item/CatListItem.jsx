@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+
+
 export default function CatListItem({
     _id,
     title,
@@ -8,9 +11,9 @@ export default function CatListItem({
     <div className="allGames">
     <div className="allGames-info">
         <img src={imageUrl} />
-        <h6>{category}</h6>
-        <h2>{title}</h2>
-        <a href="#" className="details-button">Details</a>
+        <h6>{title}</h6>
+        <h2>{category}</h2>
+        <Link to={`/cats/${_id}/details`} className="details-button">Details</Link>
     </div>
 
 </div>

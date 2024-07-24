@@ -9,3 +9,12 @@ export const getAll = async () => {
 };
 
 
+export const getOne = (catId) => request.get(`${BASE_URL}/${catId}`);
+
+const catsAPI = {
+    getAll,
+    getOne,
+
+};
+
+export default catsAPI;
