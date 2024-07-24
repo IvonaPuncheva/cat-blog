@@ -34,13 +34,13 @@ SoftUni React Course Project
 - [x] Clear form
 ## 6. API Hooks
 - [x] Form Hook
-- [ ] CatAPI Hooks
+- [x] CatAPI Hooks
 - [ ] Comment Hooks
 ## 7.Authentication
-- [ ] Auth API
-- [ ] Auth API Hooks
+- [] Auth API
+- [] Auth API Hooks
 - [ ] Auth state & context
-- [ ] Login
+- [x] Login
 - [ ] Register
 - [ ] Logout
 ## 8. UI Implementation

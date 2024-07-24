@@ -13,8 +13,10 @@ const getAll = async(catId) => {
     return comments;
 };
 
-export default {
+const commentsAPI = {
     create,
     getAll
 }
+
+export default commentsAPI;
 
