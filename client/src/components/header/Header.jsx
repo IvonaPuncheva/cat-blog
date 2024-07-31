@@ -9,6 +9,7 @@ export default function Header() {
     const { isAuthenticated } = useContext(AuthContext);
 
     const navigate = useNavigate();
+    console.log(isAuthenticated);
 
     return (
         // <header>
@@ -49,9 +50,24 @@ export default function Header() {
                 <Link to={'/'}>
                     <li className='hidden sm:inline text-slate-700 hover:underline'>Home</li>
                 </Link>
-                <Link to={'/about'}>
+                {/* <Link to={'/about'}>
                     <li className='hidden sm:inline text-slate-700 hover:underline'>About</li>
-                </Link>
+                </Link> */}
+                <Link to="/cats" className='hidden sm:inline text-slate-700 hover:underline'>All cats</Link>
+                 {isAuthenticated
+                    ? (
+                        <div id="user">
+                            <Link to="/cats/create">Create Cat</Link>
+                            <Link to="/logout">Logout</Link>
+                        </div>
+                    )
+                    : (
+                        <div id="guest">
+                            <Link to="/login" className='hidden sm:inline text-slate-700 hover:underline' >Login</Link>
+                            <Link to="/register" className='hidden sm:inline text-slate-700 hover:underline'>Register</Link>
+                        </div>
+                    )
+                }
 
             </ul>
 

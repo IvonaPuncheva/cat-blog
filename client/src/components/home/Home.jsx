@@ -13,6 +13,17 @@ export default function Home() {
             setLatestCats(result.reverse().slice(0, 3));
         })();
     }, [])
+    // useEffect(() => {
+    //     (async () => {
+    //         try {
+    //             // TODO: MODIFY TO FETCH ONLY LATEST CATS
+    //             const result = await catsAPI.getAll();
+    //             setLatestCats(result.reverse().slice(0, 3));
+    //         } catch (error) {
+    //             console.error('Error fetching latest cats:', error);
+    //         }
+    //     })(); // Правилно затваряне на асинхронната функция и изпълнението й
+    // }, []);
     return (
         <section id="welcome-world">
 
