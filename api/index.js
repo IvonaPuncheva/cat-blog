@@ -8,6 +8,7 @@ import listingRouter from './routes/listing.route.js';
 import catsRouter from './routes/cats.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import catRouter from './routes/cats.route.js'
 
 import commentsRoutes from './routes/comment.route.js'
 dotenv.config();
@@ -41,6 +42,7 @@ app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
 app.use('/api/cats', catsRouter);
+app.use('/api/:catId', catRouter);
 
 app.use(express.static(path.join(__direname, '/client/dist')));
 

@@ -1,5 +1,6 @@
 import Listing from "../modals/listing.modal.js"
 import { errorHandler } from "../utils/error.js";
+import catSchema from "../modals/cats.modal.js"
 
 export const createListing = async (req, res, next) => {
     try {
@@ -115,4 +116,16 @@ export const getListings = async (req, res, next) => {
         next(error)
     }
 
+};
+
+export const getCatById = async (req, res, next) => {
+    try {
+        const cat = await catSchema.findById(req.params.id).populate('owner', 'username email');
+        if (!cat) {
+            return next(errorHandler(404, 'Cat not found!'));
+        }
+        res.status(200).json(cat);
+    } catch (error) {
+        next(error);
+    }
 };

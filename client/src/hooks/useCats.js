@@ -15,7 +15,7 @@ export function useGetAllCats() {
 
 }
 
-export function useGetOneCats(catId) {
+export function useGetOneCat(catId) {
     const [cat, setCat] = useState({});
     useEffect(() => {
         (async () => {

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import commentsAPI from "../../api/commentsAPI.js";
-import { useGetOneCats } from "../../hooks/useCats";
+import { useGetOneCat } from "../../hooks/useCats";
 
 
 export default function CatDetails() {
     const { catId } = useParams()
-    const [cat, setCat] = useGetOneCats(catId);
+    const [cat, setCat] = useGetOneCat(catId);
     const [username, setUserName] = useState('');
     const [comment, setComment] = useState('');
 

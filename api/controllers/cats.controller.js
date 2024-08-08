@@ -21,12 +21,12 @@
 import mongoose from "mongoose";
 import Cat from "../modals/cats.modal.js";
 
-// Примерна функция за проверка
+
 export const testCats = async (req, res, next) => {
     res.json('successfully');
 };
 
-// Функция за създаване на нова котка
+
 export const createCat = async (req, res, next) => {
     try {
         console.log('Request body:', req.body);
@@ -39,15 +39,15 @@ export const createCat = async (req, res, next) => {
             return res.status(400).json({ success: false, message: 'Invalid user ID' });
         }
 
-        // Добавете owner ID в данните за създаване на котката
+        
         const catData = {
             ...req.body,
-            owner: userId // Задайте owner на базата на текущия потребител
+            owner: userId 
         };
 
         console.log('Cat data:', catData);
 
-        // Създайте нова котка
+       
         const cat = await Cat.create(catData);
         return res.status(201).json(cat);
     } catch (error) {
@@ -57,7 +57,7 @@ export const createCat = async (req, res, next) => {
 };
 export const getAllCats = async (req, res, next) => {
     try {
-        const cats = await Cat.find().populate('owner', 'username email'); // Попълнете полетата от модела на потребителя, ако е необходимо
+        const cats = await Cat.find().populate('owner', 'username email'); 
         return res.status(200).json(cats);
     } catch (error) {
         console.error('Error fetching cats:', error);
@@ -65,3 +65,19 @@ export const getAllCats = async (req, res, next) => {
     }
 };
 
+
+export const getOneCat = async (req, res, next) => {
+    try {
+        const catId = req.params.id; 
+        const cat = await Cat.findById(catId).populate('owner', 'username email'); 
+
+        if (!cat) {
+            return res.status(404).json({ success: false, message: 'Cat not found' });
+        }
+
+        return res.status(200).json(cat);
+    } catch (error) {
+        console.error('Error fetching cat:', error);
+        return res.status(400).json({ success: false, message: error.message });
+    }
+};
