@@ -40,21 +40,25 @@ SoftUni React Course Project
 - [x] Auth API
   - [x] Login
   - [x] Register
-  - [ ] Logout
+  - [x] Logout
 - [x] Auth API Hooks
   - [x] Login
   - [x] Register
-  - [ ] Logout
+  - [x] Logout
 - [x] Auth state & context
 - [x] Token management
 - [x] Login
 - [x] Register
   - [x] Add form validation
-- [ ] Logout
+- [x] Logout
 - [x] Authorized Request
 ## 8. UI Implementation
-- [ ] Dynamic navigation
-- [ ] Create cat
-  - [ ]  API function
-  - [ ]  Create hook
-  - [ ]  Latest cats
+- [x] Dynamic navigation
+- [x] Create cat
+  - [x]  API function
+  - [x]  Create hook
+- [ ]  Latest cats
+- [ ]  Edit cat
+- [ ]  Delete cat
+## 9. Refactoring
+-[] Comments

@@ -5,8 +5,11 @@ import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
+import catsRouter from './routes/cats.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+
+import commentsRoutes from './routes/comment.route.js'
 dotenv.config();
 
 mongoose
@@ -19,17 +22,25 @@ const __direname = path.resolve();
 
 const app = express();
 
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    credentials: true,
+};
+
 app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(cors());
+app.use(cors(corsOptions));
+
+app.use('/jsonstore/cats', commentsRoutes);
 
 app.listen(3000, () => console.log('app listening on port 3000'));
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
+app.use('/api/cats', catsRouter);
 
 app.use(express.static(path.join(__direname, '/client/dist')));
 
@@ -48,3 +59,5 @@ app.use((err, req, res, next) => {
     });
 
 });
+
+

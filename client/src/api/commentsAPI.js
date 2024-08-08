@@ -1,9 +1,9 @@
 import requester from "./requester"
 
-const BASE_URL = 'http://localhost:3030/jsonstore/cats/'
+const BASE_URL = 'http://localhost:3000/jsonstore/cats/'
 
 const buildUrl = (catId) => `${BASE_URL}/${catId}/comments`;
-const create = async (catId, username, text) => requester.post(buildUrl(catId), { username, text });
+const create = async (catId, username, text) => requester.post(buildUrl(catId), { catId, username, text });
 
 const getAll = async(catId) => {
   const result = await requester.get(buildUrl(catId));

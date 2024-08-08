@@ -206,9 +206,9 @@ describe('E2E tests', function () {
             const titles = await page.$$eval('#welcome-world .game h3', t => t.map(s => s.textContent));
 
             expect(titles.length).to.equal(data.length);
-            expect(titles[0]).to.contains(`${data[0].title}`);
-            expect(titles[1]).to.contains(`${data[1].title}`);
-            expect(titles[2]).to.contains(`${data[2].title}`);
+            expect(titles[0]).to.contains(`${data[0].name}`);
+            expect(titles[1]).to.contains(`${data[1].name}`);
+            expect(titles[2]).to.contains(`${data[2].name}`);
             expect(await page.isVisible('text=No games yet')).to.be.false;
         });
 
@@ -219,12 +219,12 @@ describe('E2E tests', function () {
             await page.waitForTimeout(interval);
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
-            expect(await page.textContent('.game-header h1')).to.contains(data.title);
-            expect(await page.textContent('.type')).to.contains(data.category);
-            expect(await page.textContent('.text')).to.contains(data.summary);
+            expect(await page.textContent('.game-header h1')).to.contains(data.name);
+            expect(await page.textContent('.type')).to.contains(data.breed);
+            expect(await page.textContent('.text')).to.contains(data.description);
 
         });
 
@@ -281,11 +281,11 @@ describe('E2E tests', function () {
             await page.waitForTimeout(interval);
 
             await page.waitForSelector('form');
-            await page.fill('[name="title"]', data.title);
-            await page.fill('[name="category"]', data.category);
-            await page.fill('[name="maxLevel"]', data.maxLevel);
+            await page.fill('[name="name"]', data.name);
+            await page.fill('[name="breed"]', data.breed);
+            await page.fill('[name="age"]', data.age);
             await page.fill('[name="imageUrl"]', data.imageUrl);
-            await page.fill('[name="summary"]', data.summary);
+            await page.fill('[name="description"]', data.description);
 
             const [request] = await Promise.all([
                 onRequest(),
@@ -294,11 +294,11 @@ describe('E2E tests', function () {
 
             const postData = JSON.parse(request.postData());
 
-            expect(postData.title).to.equal(data.title);
-            expect(postData.category).to.equal(data.category);
-            expect(postData.maxLevel).to.equal(data.maxLevel);
+            expect(postData.name).to.equal(data.name);
+            expect(postData.breed).to.equal(data.breed);
+            expect(postData.age).to.equal(data.age);
             expect(postData.imageUrl).to.equal(data.imageUrl);
-            expect(postData.summary).to.equal(data.summary);
+            expect(postData.description).to.equal(data.description);
         });
 
         it('non-author does NOT see delete and edit buttons [ 5 Points ]', async () => {
@@ -306,7 +306,7 @@ describe('E2E tests', function () {
             const { get } = await handle(endpoints.details(data._id));
             get(data);
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             expect(await page.isVisible('text="Delete"')).to.be.false;
@@ -319,7 +319,7 @@ describe('E2E tests', function () {
             get(data);
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             expect(await page.isVisible('text="Delete"')).to.be.true;
@@ -332,7 +332,7 @@ describe('E2E tests', function () {
             get(data);
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             await page.click('text=Edit');
@@ -342,11 +342,11 @@ describe('E2E tests', function () {
 
             const inputs = await page.$$eval('.container input', t => t.map(i => i.value));
             const textArea = await page.$$eval('.container textarea', t => t.map(i => i.value));
-            expect(inputs[0]).to.contains(data.title);
-            expect(inputs[1]).to.contains(data.category);
-            expect(inputs[2]).to.contains(data.maxLevel);
+            expect(inputs[0]).to.contains(data.name);
+            expect(inputs[1]).to.contains(data.breed);
+            expect(inputs[2]).to.contains(data.age);
             expect(inputs[3]).to.contains(data.imageUrl);
-            expect(textArea[0]).to.contains(data.summary);
+            expect(textArea[0]).to.contains(data.description);
         });
 
         it('edit does NOT work with empty fields [ 5 Points ]', async () => {
@@ -356,7 +356,7 @@ describe('E2E tests', function () {
             const { isHandled } = put();
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             await page.click('text=Edit');
@@ -364,11 +364,11 @@ describe('E2E tests', function () {
 
             await page.waitForSelector('form');
 
-            await page.fill('[name="title"]', '');
-            await page.fill('[name="category"]', '');
-            await page.fill('[name="maxLevel"]', '');
+            await page.fill('[name="name"]', '');
+            await page.fill('[name="breed"]', '');
+            await page.fill('[name="age"]', '');
             await page.fill('[name="imageUrl"]', '');
-            await page.fill('[name="summary"]', '');
+            await page.fill('[name="description"]', '');
 
             await page.click('[type="submit"]');
             await page.waitForTimeout(interval);
@@ -384,7 +384,7 @@ describe('E2E tests', function () {
             const { onRequest } = put();
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             await page.click('text=Edit');
@@ -392,8 +392,8 @@ describe('E2E tests', function () {
 
             await page.waitForSelector('form');
 
-            await page.fill('[name="title"]', data2.title);
-            await page.fill('[name="maxLevel"]', data2.maxLevel);
+            await page.fill('[name="name"]', data2.name);
+            await page.fill('[name="age"]', data2.age);
 
             const [request] = await Promise.all([
                 onRequest(),
@@ -402,8 +402,8 @@ describe('E2E tests', function () {
 
             const postData = JSON.parse(request.postData());
 
-            expect(postData.title).to.contains(data2.title);
-            expect(postData.maxLevel).to.contains(data2.maxLevel);
+            expect(postData.name).to.contains(data2.name);
+            expect(postData.age).to.contains(data2.age);
         });
 
         it('delete makes correct API call for logged in user [ 10 Points ]', async () => {
@@ -413,7 +413,7 @@ describe('E2E tests', function () {
             const { onResponse, isHandled } = del();
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             page.on('dialog', dialog => dialog.accept());
@@ -465,7 +465,7 @@ describe('E2E tests', function () {
 
             const titles = await page.$$eval('.allGames >> .allGames-info >> h2', t => t.map(s => s.textContent));
             expect(titles.length).to.equal(1);
-            expect(titles[0]).to.contains(`${data[0].title}`);
+            expect(titles[0]).to.contains(`${data[0].name}`);
         });
     });
 
@@ -499,10 +499,10 @@ describe('E2E tests', function () {
             const titles = await page.$$eval('.allGames >> .allGames-info >> h2', t => t.map(s => s.textContent));
             expect(titles.length).to.equal(data.length);
 
-            expect(titles[0]).to.contains(`${data[0].title}`);
-            expect(titles[1]).to.contains(`${data[1].title}`);
-            expect(titles[2]).to.contains(`${data[2].title}`);
-            expect(titles[3]).to.contains(`${data[3].title}`);
+            expect(titles[0]).to.contains(`${data[0].name}`);
+            expect(titles[1]).to.contains(`${data[1].name}`);
+            expect(titles[2]).to.contains(`${data[2].name}`);
+            expect(titles[3]).to.contains(`${data[3].name}`);
         });
     });
 
@@ -515,7 +515,7 @@ describe('E2E tests', function () {
             await page.goto(host);
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             expect(await page.isVisible('.details-comments')).to.be.true;
@@ -530,7 +530,7 @@ describe('E2E tests', function () {
             const { get } = await handle(endpoints.comments('1001'));
             get([]);
 
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
             const comments = await page.$$eval('details-comments ul li', t => t.map(s => s.textContent));
             expect(comments.length).to.equal(0);
@@ -560,7 +560,7 @@ describe('E2E tests', function () {
             getComments([]);
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             const { post } = await handle(endpoints.postComments);
@@ -593,7 +593,7 @@ describe('E2E tests', function () {
             getComments([]);
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             const { post } = await handle(endpoints.postComments);
@@ -634,7 +634,7 @@ describe('E2E tests', function () {
             const { onRequest } = post(mockData.comments);
 
             await page.waitForSelector('#welcome-world');
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             await page.fill('[name="comment"]', comments[0].comment);
@@ -664,7 +664,7 @@ describe('E2E tests', function () {
             await page.waitForSelector('#welcome-world');
             getDetails(data);
 
-            await page.click(`.game:has-text("${data.title}") >> .details-btn`);
+            await page.click(`.game:has-text("${data.name}") >> .details-btn`);
             await page.waitForTimeout(interval);
 
             await page.fill('[name="comment"]', comments[1].comment);

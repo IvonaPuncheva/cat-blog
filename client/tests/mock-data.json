@@ -17,38 +17,38 @@
         {
             "_id": "1001",
             "_ownerId": "0001",
-            "title": "Name_1",
-            "category": "caterory1",
-            "maxLevel": "100",
+            "name": "Name_1",
+            "breed": "caterory1",
+            "age": "100",
             "imageUrl": "./images/ZombieLang.png",
-            "summary": "summary1"
+            "description": "summary1"
         },
         {
             "_id": "1002",
             "_ownerId": "0001",
-            "title": "Name_2",
-            "category": "category2",
-            "maxLevel": "250",
+            "name": "Name_2",
+            "breed": "category2",
+            "age": "250",
             "imageUrl": "./images/MineCraft.png",
-            "summary": "summary2"
+            "description": "summary2"
         },
         {
             "_id": "1003",
             "_ownerId": "0002",
-            "title": "Name_3",
-            "category": "category3",
-            "maxLevel": "70",
+            "name": "Name_3",
+            "breed": "category3",
+            "age": "70",
             "imageUrl": "./images/CoverFire.png",
-            "summary": "summary3"
+            "description": "summary3"
         },
         {
             "_id": "1004",
             "_ownerId": "0002",
-            "title": "Game_4",
-            "category": "category4",
-            "maxLevel": "71",
+            "name": "Game_4",
+            "breed": "category4",
+            "age": "71",
             "imageUrl": "./images/CoverFire.png",
-            "summary": "summary_4"
+            "description": "summary_4"
         }
     ],
     "comments": [

@@ -1,7 +1,10 @@
 async function requester(method, url, data) {
-    const options = {};
+    const options = {
+        credentials: 'include'
+    };
 
     const accessToken = localStorage.getItem('accessToken');
+  
     if (accessToken) {
         options.headers={
             ...options.headers,

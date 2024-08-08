@@ -1,6 +1,6 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import commentsAPI from "../../api/commentsAPI";
+import commentsAPI from "../../api/commentsAPI.js";
 import { useGetOneCats } from "../../hooks/useCats";
 
 
@@ -9,12 +9,12 @@ export default function CatDetails() {
     const [cat, setCat] = useGetOneCats(catId);
     const [username, setUserName] = useState('');
     const [comment, setComment] = useState('');
-  
 
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
+    const [isOwner, setIsOwner] = useState(false);
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
-
         const newComment = await commentsAPI.create(catId, username, comment);
 
         //    TODO: this should be refractored
@@ -25,74 +25,185 @@ export default function CatDetails() {
                 [newComment._id]: newComment,
             }
         }));
-      
+
         setUserName('');
         setComment('');
 
 
     }
 
-    return (
-        <section id="game-details">
-            <h1>CAT Details</h1>
-            <div className="info-section">
+    const handleDelete = () => {
+        try {
+            deviceService.remove(deviceId);
+            navigate('/devices');
+        } catch (error) {
+            setError(error.message)
+        }
+    }
 
-                <div className="game-header">
-                    <img className="game-img" src={cat.imageUrl} />
-                    <h1>{cat.title}</h1>
-                    <span className="levels">Age: {cat.maxLevel}</span>
-                    <p className="type">{cat.category}</p>
+    const toggleConfirmModal = () => {
+        setShowConfirmModal((prev) => !prev);
+    };
+
+    return (
+        // <section id="game-details">
+        //     <h1>CAT Details</h1>
+        //     <div className="info-section">
+
+        //         <div className="game-header">
+        //             <img className="game-img" src={cat.imageUrl} />
+        //             <h1>{cat.name}</h1>
+        //             <span className="levels">Age: {cat.age}</span>
+        //             <p className="type">{cat.breed}</p>
+        //         </div>
+
+        //         <p className="text">{cat.description} </p>
+
+        //         {/* <!-- Bonus ( for Guests and Users ) --> */}
+        //         <div className="details-comments">
+        //             <h2>Comments:</h2>
+        //             <ul>
+        //                 {Object.keys(cat.comments || {}).length > 0
+        //                     ? Object.values(cat.comments).map(comment => (
+        //                         <li key={comment._id} className="comment">
+        //                             <p>{comment.username}: {comment.text}</p>
+        //                         </li>
+        //                     ))
+        //                     : <p className="no-comment">No comments.</p>
+        //                 }
+        //             </ul>
+
+        //         </div>
+
+        //         {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
+        //         <div className="buttons">
+        //             <a href="#" className="button">Edit</a>
+        //             <a href="#" className="button">Delete</a>
+        //         </div>
+        //     </div>
+
+        //     {/* <!-- Bonus --> */}
+        //     {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
+        //     <article className="create-comment">
+        //         <label>Add new comment:</label>
+        //         <form className="form" onSubmit={commentSubmitHandler}>
+        //             <input
+        //                 type="text"
+        //                 placeholder="Pesho"
+        //                 name="username"
+        //                 onChange={(e) => setUserName(e.target.value)}
+        //                 value={username}
+        //             />
+
+        //             <textarea
+        //                 name="comment"
+        //                 placeholder="Comment......"
+        //                 onChange={(e) => setComment(e.target.value)}
+        //                 value={comment}
+        //             ></textarea>
+        //             <input className="btn submit" type="submit" value="Add Comment" />
+        //         </form>
+        //     </article>
+
+        // </section>
+
+        <section id="cat-details" className="p-6 max-w-4xl mx-auto">
+            <h1 className="text-3xl font-bold text-center mb-6">CAT Details</h1>
+            <div className="info-section bg-white p-6 rounded-lg shadow-md">
+
+                <div className="cat-header flex flex-col items-center mb-6">
+                    <img className="cat-img rounded-lg mb-4" src={cat.imageUrl} alt={`${cat.name}`} />
+                    <h1 className="text-2xl font-semibold text-gray-800">{cat.name}</h1>
+                    <span className="levels text-gray-600">Age: {cat.age}</span>
+                    <p className="type text-gray-500">{cat.breed}</p>
                 </div>
 
-                <p className="text">{cat.description} </p>
+                <p className="text-gray-700 mb-6">{cat.description}</p>
 
-                {/* <!-- Bonus ( for Guests and Users ) --> */}
-                <div className="details-comments">
-                    <h2>Comments:</h2>
+                <div className="details-comments mb-6">
+                    <h2 className="text-xl font-semibold mb-4">Comments:</h2>
                     <ul>
                         {Object.keys(cat.comments || {}).length > 0
                             ? Object.values(cat.comments).map(comment => (
-                                <li key={comment._id} className="comment">
-                                    <p>{comment.username}: {comment.text}</p>
+                                <li key={comment._id} className="comment mb-2">
+                                    <p className="text-gray-700"><span className="font-bold">{comment.username}</span>: {comment.text}</p>
                                 </li>
                             ))
-                            : <p className="no-comment">No comments.</p>
+                            : <p className="text-gray-500">No comments.</p>
                         }
                     </ul>
-
                 </div>
+                {isOwner && (
+                    <div className="flex justify-between mt-4">
+                        <Link to={`/cats/${catId}/edit`}
+                            // onClick={handleEdit}
+                            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+                        >
+                            Edit
+                        </Link>
+                        <button
+                            onClick={toggleConfirmModal}
+                            className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                )}
 
-                {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
-                <div className="buttons">
-                    <a href="#" className="button">Edit</a>
-                    <a href="#" className="button">Delete</a>
-                </div>
+                {/* Delete confirmation modal */}
+                {showConfirmModal && (
+                    <div >
+                        <div >
+                            <p className="text-gray-800 mb-4">
+                                Are you sure you want to delete this item?
+                            </p>
+                            <div className="flex justify-end">
+                                <button
+                                    onClick={toggleConfirmModal}
+                                    className="bg-gray-500 text-white py-2 px-4 rounded-md mr-2 hover:bg-gray-600 transition duration-300"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleDelete}
+                                    className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
+                                >
+                                    Confirm Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {/* <div className="buttons flex space-x-4 mb-6">
+      <a href="#" className="button bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Edit</a>
+      <a href="#" className="button bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Delete</a>
+    </div> */}
             </div>
 
-            {/* <!-- Bonus --> */}
-            {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
-            <article className="create-comment">
-                <label>Add new comment:</label>
-                <form className="form" onSubmit={commentSubmitHandler}>
+            <article className="create-comment mt-6">
+                <label className="block text-lg font-semibold mb-2">Add new comment:</label>
+                <form className="form space-y-4" onSubmit={commentSubmitHandler}>
                     <input
                         type="text"
                         placeholder="Pesho"
                         name="username"
+                        className="w-full p-3 border border-gray-300 rounded"
                         onChange={(e) => setUserName(e.target.value)}
                         value={username}
                     />
-
                     <textarea
                         name="comment"
                         placeholder="Comment......"
+                        className="w-full p-3 border border-gray-300 rounded"
                         onChange={(e) => setComment(e.target.value)}
                         value={comment}
                     ></textarea>
-                    <input className="btn submit" type="submit" value="Add Comment" />
+                    <input className="btn submit bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 cursor-pointer" type="submit" value="Add Comment" />
                 </form>
             </article>
-
         </section>
+
+
 
     );
 }

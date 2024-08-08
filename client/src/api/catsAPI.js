@@ -1,6 +1,6 @@
-import * as request from './requester';
+import * as request from './requester.js';
 
-const BASE_URL = 'http://localhost:3030/data/cats'
+const BASE_URL = 'http://localhost:3000/api/cats';
 
 export const getAll = async () => {
    const result = await request.get(BASE_URL);
@@ -11,7 +11,7 @@ export const getAll = async () => {
 
 export const getOne = (catId) => request.get(`${BASE_URL}/${catId}`);
 
-export const create = (catData) => request.post(`${BASE_URL}`, catData);
+export const create = (catData) => request.post(`${BASE_URL}/create`, catData);
 
 const catsAPI = {
     getAll,

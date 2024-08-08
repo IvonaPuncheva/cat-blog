@@ -13,3 +13,21 @@ export const  login = (email, password) => requester.post(`${BASE_URL}/signin`, 
 
 
 export const register = (username, email, password) =>requester.post(`${BASE_URL}/signup`, {username, email, password});
+
+
+export const logout = async () => {
+    try {
+        const response = await fetch('/api/auth/logout', {
+            method: 'GET',
+            credentials: 'include', // Важно е за да се изпратят и получат кукитата
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to log out');
+        }
+
+        console.log('Logged out successfully');
+    } catch (error) {
+        console.error('Error during logout:', error.message);
+    }
+};
