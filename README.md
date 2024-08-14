@@ -58,7 +58,7 @@ SoftUni React Course Project
   - [x]  API function
   - [x]  Create hook
 - [ ]  Latest cats
-- [ ]  Edit cat
+- [x]  Edit cat
 - [x]  Delete cat
 ## 9. Refactoring
 -[x] Extract authData state from App component

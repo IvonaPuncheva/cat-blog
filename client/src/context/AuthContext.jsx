@@ -15,9 +15,8 @@ export const AuthContext = createContext({
     const [authState, setAuthState] = usePersistedState('auth', {});
     
   const changeAuthState = (state) => {
-    localStorage.setItem('accessToken', state.accessToken);
-    
     setAuthState(state);
+    
   }
   const contextData = {
     userId: authState._id,
