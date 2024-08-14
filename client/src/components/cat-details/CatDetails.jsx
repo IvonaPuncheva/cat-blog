@@ -23,8 +23,13 @@ export default function CatDetails() {
         changeHandler,
         submitHandler,
         values,
-     } = useForm(initialValues, ({ comment }) =>{
-         createComment(catId, comment)
+     } = useForm(initialValues, async ({ comment }) =>{
+        try{
+         const newComment = await createComment(catId, comment);
+         setComments(oldComments =>[...oldComments, newComment]);
+        }catch(err){
+            console.log(err.message);
+        }
     });
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
