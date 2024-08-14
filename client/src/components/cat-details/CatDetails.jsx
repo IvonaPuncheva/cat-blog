@@ -87,7 +87,7 @@ export default function CatDetails() {
                         {comments.map(comment => (
                                 <li key={comment._id} className="comment mb-2">
                                     <p className="text-gray-700">
-                                        <span className="font-bold">Username:</span> {comment.text}
+                                        <span className="font-bold">{comment.author.email}:</span> {comment.text}
                                     </p>
                                 </li>
                             ))
