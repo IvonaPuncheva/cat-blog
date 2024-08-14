@@ -1,60 +1,56 @@
 
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { useAuthContext } from "../../context/AuthContext.jsx";
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import commentsAPI from "../../api/commentsAPI.js";
 import { useGetOneCat } from "../../hooks/useCats";
 import catsAPI from "../../api/catsAPI.js";
 // import { useCurrentUser } from "../../hooks/useAuth.js"; // Добав
-import { useContext } from "react";
+import { useForm } from '../../hooks/useForm.js'
+import {useCreateComment, useGetAllComments} from "../../hooks/useComments.js";
+
+const initialValues = {
+    comment: '',
+};
 
 export default function CatDetails() {
     const { catId } = useParams();
-   
-    const [cat, setCat] = useGetOneCat(catId);
-    
-    const [username, setUserName] = useState('');
-    const [comment, setComment] = useState('');
-    
+    const [comments, setComments] = useGetAllComments(catId);
+    const createComment = useCreateComment();
+    const [cat] = useGetOneCat(catId);
+    const {isAuthenticated} = useAuthContext();
+    const {
+        changeHandler,
+        submitHandler,
+        values,
+     } = useForm(initialValues, ({ comment }) =>{
+         createComment(catId, comment)
+    });
+
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
     const navigate = useNavigate();
-    const { userId } = useContext(AuthContext);
+    // const { userId } = useContext(AuthContext);
+
     
-    console.log(cat.owner);
-    console.log(userId);
-    
-    useEffect(() => {
-        // Проверка дали текущият потребител е собственик на котката
-        if (cat && userId) {
-            setIsOwner(cat.owner?._id === userId);
 
-        }
-    }, [cat, userId]);
-    console.log(isOwner);
+    // useEffect(() => {
+     
+    //     if (cat && userId) {
+    //         setIsOwner(cat.owner?._id === userId);
 
-    const commentSubmitHandler = async (e) => {
-        e.preventDefault();
-        const newComment = await commentsAPI.create(catId, username, comment);
+    //     }
+    // }, [cat, userId]);
+    // console.log(isOwner);
 
-        setCat(prevState => ({
-            ...prevState,
-            comments: {
-                ...prevState.comments,
-                [newComment._id]: newComment,
-            }
-        }));
 
-        setUserName('');
-        setComment('');
-    }
 
     const handleDelete = async () => {
         const isConfirmed = confirm(`Are you sure you want to delete ${cat.name} cat?`);
         if (!isConfirmed) {
-         return;
+            return;
         }
-   
+
         try {
             await catsAPI.remove(catId);
             navigate('/cats');
@@ -83,17 +79,16 @@ export default function CatDetails() {
                 <div className="details-comments mb-6">
                     <h2 className="text-xl font-semibold mb-4">Comments:</h2>
                     <ul>
-                        {Object.keys(cat.comments || {}).length > 0
-                            ? Object.values(cat.comments).map(comment => (
+                        {comments.map(comment => (
                                 <li key={comment._id} className="comment mb-2">
                                     <p className="text-gray-700">
-                                        <span className="font-bold">{comment.username}</span>: {comment.text}
+                                        <span className="font-bold">Username:</span> {comment.text}
                                     </p>
                                 </li>
                             ))
-                            : <p className="text-gray-500">No comments.</p>
                         }
                     </ul>
+                   {comments.length === 0 && <p className="text-gray-500">No comments.</p>}
                 </div>
 
                 {isOwner && (
@@ -136,24 +131,16 @@ export default function CatDetails() {
                     </div>
                 )}
             </div>
-
+                {isAuthenticated && (
             <article className="create-comment mt-6">
                 <label className="block text-lg font-semibold mb-2">Add new comment:</label>
-                <form className="form space-y-4" onSubmit={commentSubmitHandler}>
-                    <input
-                        type="text"
-                        placeholder="Pesho"
-                        name="username"
-                        className="w-full p-3 border border-gray-300 rounded"
-                        onChange={(e) => setUserName(e.target.value)}
-                        value={username}
-                    />
+                <form className="form space-y-4" onSubmit={submitHandler}>
                     <textarea
                         name="comment"
                         placeholder="Comment......"
                         className="w-full p-3 border border-gray-300 rounded"
-                        onChange={(e) => setComment(e.target.value)}
-                        value={comment}
+                        onChange={changeHandler}
+                        value={values.comment}
                     ></textarea>
                     <input
                         className="btn submit bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 cursor-pointer"
@@ -162,6 +149,7 @@ export default function CatDetails() {
                     />
                 </form>
             </article>
+            )}
         </section>
     );
 }

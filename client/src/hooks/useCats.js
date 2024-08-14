@@ -23,6 +23,7 @@ export function useGetOneCat(catId) {
         imageUrl: '',
         description: '',
     });
+    
     useEffect(() => {
         (async () => {
             const result = await catsAPI.getOne(catId);
@@ -46,24 +47,6 @@ export function useCreateCat() {
 //     return catEditHandler;
 // }
 
-
-// export const useEditCat = () => {
-//     return async (catId, values) => {
-//         const response = await fetch(`/api/cats/${catId}/details/edit`, {
-//             method: "PUT",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(values),
-//         });
-
-//         if (!response.ok) {
-//             throw new Error('Failed to edit cat');
-//         }
-
-//         return await response.json();
-//     };
-// };
 export const useEditCat = () => {
     return async (catId, values) => {
         const response = await fetch(`/api/cats/${catId}/edit`, {

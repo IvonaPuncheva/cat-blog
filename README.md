@@ -63,3 +63,4 @@ SoftUni React Course Project
 ## 9. Refactoring
 -[x] Extract authData state from App component
 -[x] Persist auth state
+-[] Comments
