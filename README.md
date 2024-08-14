@@ -59,6 +59,6 @@ SoftUni React Course Project
   - [x]  Create hook
 - [ ]  Latest cats
 - [ ]  Edit cat
-- [ ]  Delete cat
+- [x]  Delete cat
 ## 9. Refactoring
 -[] Comments

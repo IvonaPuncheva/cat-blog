@@ -86,12 +86,14 @@ export const getOneCat = async (req, res, next) => {
 };
 
 export const editCat = async (req, res) => {
+ 
     try {
         const updatedCat = await Cat.findByIdAndUpdate(
             req.params.catId,
             req.body,
             { new: true }
         );
+    
 
         if (!updatedCat) {
             return res.status(404).json({ message: 'Cat not found' });
@@ -113,7 +115,7 @@ export const deleteCat = async (req, res, next) => {
 
    
     if (req.user.id !== cat.owner.toString()) {
-        return next(errorHandler(401, 'You can only update your own cats!'))
+        return next(errorHandler(401, 'You can only delete your own cats!'))
     };
 
     try {

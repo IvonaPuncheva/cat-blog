@@ -10,7 +10,7 @@ router.get('/test', testCats);
 router.post('/create',verifyToken, createCat);
 router.get('/', getAllCats);
 router.get('/:id', getCatById);
-router.put('/:catId/details/edit', verifyToken, editCat)
+router.put('/:catId', verifyToken, editCat)
 router.delete('/:catId', verifyToken, deleteCat);
 
 

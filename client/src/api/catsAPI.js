@@ -14,12 +14,14 @@ export const getOne = (catId) => request.get(`${BASE_URL}/${catId}`);
 export const create = (catData) => request.post(`${BASE_URL}/create`, catData);
 
 export const edit = async (catId, data) => {
-    const response = await request.put(`${BASE_URL}/details/edit/${catId}`, data);
+    const response = await request.put(`${BASE_URL}/edit/${catId}`, data);
 
     return response;
 }
 
 export const remove = (catId) => request.del(`${BASE_URL}/${catId}`);
+
+export const update = (catId, catData) => request.put(`${BASE_URL}/${catId}`, catData);
 
 const catsAPI = {
     getAll,
@@ -27,6 +29,7 @@ const catsAPI = {
     create,
     remove,
     edit,
+    update,
 };
 
 export default catsAPI;

@@ -50,6 +50,11 @@ export default function CatDetails() {
     }
 
     const handleDelete = async () => {
+        const isConfirmed = confirm(`Are you sure you want to delete ${cat.name} cat?`);
+        if (!isConfirmed) {
+         return;
+        }
+   
         try {
             await catsAPI.remove(catId);
             navigate('/cats');
@@ -93,7 +98,7 @@ export default function CatDetails() {
 
                 {isOwner && (
                     <div className="flex justify-between mt-4">
-                        <Link to={`/cats/${catId}/details/edit`}
+                        <Link to={`/cats/${catId}/edit`}
                             className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
                         >
                             Edit

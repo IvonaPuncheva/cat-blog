@@ -1,249 +1,109 @@
-// export default function CatEdit() {
-//  return (
-//     <section id="edit-page" className="auth">
-//     <form id="edit">
-//         <div className="container">
-
-//             <h1>Edit Game</h1>
-//             <label htmlFor="leg-title">Name:</label>
-//             <input type="text" id="name" name="name" value="" />
-
-//             <label htmlFor="category">Breed:</label>
-//             <input type="text" id="breed" name="breed" value="" />
-
-//             <label htmlFor="levels">Age:</label>
-//             <input type="number" id="age" name="age" min="1" value="" />
-
-//             <label htmlFor="game-img">Image:</label>
-//             <input type="text" id="imageUrl" name="imageUrl" value="" />
-
-//             <label htmlFor="summary">Description:</label>
-//             <textarea name="description" id="description"></textarea>
-//             <input className="btn submit" type="submit" value="Edit Game" />
-
-//         </div>
-//     </form>
-// </section>
-//   );
-// }
 import { useNavigate, useParams } from "react-router-dom";
-import useForm from "../../hooks/useForm.js";
-import { object, string, number } from 'yup';
-import { useEffect, useState } from "react";
+import { useForm } from "../../hooks/useForm.js";
+import {  useGetOneCat } from "../../hooks/useCats.js";
+import catsAPI from "../../api/catsAPI.js";
 
-import * as devicesService from '../../../services/devicesService'
 
-import styles from './EditDevice.module.css';
-
-const validationSchema = object().shape({
-    name: string().required('Namw Type is required').max(15, 'The word is too long!'),
-    breed: string().required('Breed is required').max(15, 'The word is too long!'),
-    age: number().typeError('Age must be a number').required('Age is required'),
-    description: string().required('Description is required'),
-    imageUrl: string().required('Please enter image url'),
- 
-  });
-
-const EditDevice = () => {
-    const { deviceId } = useParams();
-    const [error, setError] = useState('');
+export default function CatEdit() {
     const navigate = useNavigate();
+    const { catId } = useParams();
+    const [cat] = useGetOneCat(catId);
+    const {
+        values,
+        changeHandler,
+        submitHandler,
+    } = useForm(cat, async(values) => {
+        const isConfirmed = confirm('Are you sure you want to update this cat?');
+        if (isConfirmed) {
+            await catsAPI.update(catId, values);
 
-  const onEditDeviceSubmit = async (values) => {
-    try {
-      const response = await devicesService.edit(deviceId, values)
-      navigate(`/devices/${deviceId}`);
-    } catch (error) {
-      if (error.message) {
-        setError(error.message);
-      } else {
-        setError('An error occurred while editing the device.');
-      }
-    }
-  };
+            navigate(`/cats/${catId}/details`);
+        }
+   
+    });
 
-  
+    return (
+        <section id="edit-page" className='p-3 max-w-4xl mx-auto'>
+            <form id="edit" onSubmit={submitHandler} className='flex flex-col sm:flex-row gap-4'>
+                <div className='flex flex-col gap-4 flex-1'>
+                    <h1 className='text-3xl font-semibold text-center my-7'>Edit Cat</h1>
 
-  const { values, errors, onChange, onSubmit, setValues } = useForm(
-    onEditDeviceSubmit,
-    {
-      name: '',
-      breed: '',
-      age: '',
-      description: '',
-      imageUrl: '',
-      
-    },
-    validationSchema
-  );
+                    <label htmlFor="name" className='flex flex-col gap-4 flex-1'>Cat name:</label>
+                    <input
+                        type="text"
+                        className='border p-3 rounded-lg'
+                        id="name"
+                        name="name"
+                        value={values.name}
+                        onChange={changeHandler}
+                        placeholder="Enter cat name..."
+                        required
+                    />
 
+                    <label htmlFor="breed">Breed:</label>
+                    <input
+                        type="text"
+                        className='border p-3 rounded-lg'
+                        id="breed"
+                        name="breed"
+                        value={values.breed}
+                        onChange={changeHandler}
+                        placeholder="Enter cat breed..."
+                        required
+                    />
 
-  useEffect(() => {
-    let isMounted = true;
+                    <label htmlFor="age">Age:</label>
+                    <input
+                        type="number"
+                        className='border p-3 rounded-lg'
+                        id="age"
+                        name="age"
+                        min="1"
+                        value={values.age}
+                        onChange={changeHandler}
+                        placeholder="1"
+                        required
+                    />
 
-    devicesService.getOne(deviceId)
-        .then((result) => {
-            if (isMounted) {
-                setValues({
-                    name: result.name,
-                    breed: result.breed,
-                    age: result.age,
-                    description: result.description,
-                    imageUrl: result.imageUrl,
-                   
-                });
-            }
-        })
-      return () => {
-        isMounted = false;
-    };
-}, [deviceId]);
+                    <label htmlFor="imageUrl">Image:</label>
+                    <input
+                        type="text"
+                        className='border p-3 rounded-lg'
+                        id="imageUrl"
+                        name="imageUrl"
+                        value={values.imageUrl}
+                        onChange={changeHandler}
+                        placeholder="Upload a photo..."
+                        required
+                    />
 
-    return(
-        <main className={styles.mainBackground}>
-        <h2 className={styles.heading}>Edit Your <span className={styles.headingColored}>Offer</span>!</h2>
+                    <label htmlFor="description">Description:</label>
+                    <textarea
+                        name="description"
+                        className='border p-3 rounded-lg'
+                        value={values.description}
+                        onChange={changeHandler}
+                        id="description"
+                        required
+                    />
 
-        <form
-          onSubmit={onSubmit}
-          className="max-w-md mx-auto mt-8 p-4 border border-gray-300 rounded-md bg-gray-100"
-        >
-
-                {error && ( 
-                <div className={styles.errorContainer}>
-                    <strong>Error:</strong>
-                    <span>{error}</span>
+                    <input
+                        className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+                        type="submit"
+                        value="Update Cat"
+                    />
                 </div>
-             )}  
-          {/* Device Type */}
-          <div className="mb-4">
-            <label
-              className="block text-sm font-semibold mb-1"
-              htmlFor="name"
-            >
-              Device Type
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={values.name}
-              onChange={onChange}
-              className={`w-full p-3 border border-solid border-gray-300 outline-none rounded-lg ${
-                errors.name ? 'border-red-500' : ''
-              }`}
-              placeholder="e.g., Smartphone, Laptop, Tablet"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name}</p>
-            )}
-          </div>
-
-          {/* breed */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-1" htmlFor="breed">
-            breed
-            </label>
-            <input
-              type="text"
-              id="breed"
-              name="breed"
-              value={values.breed}
-              onChange={onChange}
-              className={`w-full p-3 border border-solid border-gray-300 outline-none rounded-lg ${
-                errors.breed ? 'border-red-500' : ''
-              }`}
-              placeholder="breed"
-            />
-            {errors.breed && (
-              <p className="text-red-500 text-sm">{errors.breed}</p>
-            )}
-          </div>
-
- 
-
-
-          {/* age */}
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-1" htmlFor="age">
-            age
-            </label>
-            <input
-              type="number"
-              id="age"
-              name="age"
-              value={values.age}
-              onChange={onChange}
-              className={`w-full p-3 border border-solid border-gray-300 outline-none rounded-lg ${
-                errors.age ? 'border-red-500' : ''
-              }`}
-              placeholder="Device age"
-            />
-            {errors.age && (
-              <p className="text-red-500 text-sm">{errors.age}</p>
-            )}
-          </div>
-
-          {/* Description */}
-          <div className="mb-4">
-            <label
-              className="block text-sm font-semibold mb-1"
-              htmlFor="description"
-            >
-              Description
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              value={values.description}
-              onChange={onChange}
-              className={`w-full p-3 border border-solid border-gray-300 outline-none rounded-lg resize-none ${
-                errors.description ? 'border-red-500' : ''
-              }`}
-              placeholder="Device description"
-            />
-            {errors.description && (
-              <p className="text-red-500 text-sm">{errors.description}</p>
-            )}
-          </div>
-
-          {/* Image URL */}
-          <div className="mb-4">
-            <label
-              className="block text-sm font-semibold mb-1"
-              htmlFor="imageUrl"
-            >
-              Image URL
-            </label>
-            <input
-              type="text"
-              id="imageUrl"
-              name="imageUrl"
-              value={values.imageUrl}
-              onChange={onChange}
-              className={`w-full p-3 border border-solid border-gray-300 outline-none rounded-lg ${
-                errors.imageUrl ? 'border-red-500' : ''
-              }`}
-              placeholder="Image URL"
-            />
-            {errors.imageUrl && (
-              <p className="text-red-500 text-sm">{errors.imageUrl}</p>
-            )}
-          </div>
-
-        
-
-          {/* Submit button */}
-          <div className="text-center">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition duration-300"
-            >
-              Edit Device 
-            </button>
-          </div>
-        </form>
-      </main>
+            </form>
+        </section>
     );
 }
 
-export default EditDevice;
+
+
+
+
+
+
+
+
+
