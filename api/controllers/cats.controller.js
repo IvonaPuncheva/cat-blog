@@ -20,6 +20,7 @@
 // };
 import mongoose from "mongoose";
 import Cat from "../modals/cats.modal.js";
+import { errorHandler } from "../utils/error.js";
 
 
 export const testCats = async (req, res, next) => {
@@ -55,6 +56,8 @@ export const createCat = async (req, res, next) => {
         return res.status(400).json({ success: false, message: error.message });
     }
 };
+
+
 export const getAllCats = async (req, res, next) => {
     try {
         const cats = await Cat.find().populate('owner', 'username email'); 
@@ -80,4 +83,44 @@ export const getOneCat = async (req, res, next) => {
         console.error('Error fetching cat:', error);
         return res.status(400).json({ success: false, message: error.message });
     }
+};
+
+export const editCat = async (req, res) => {
+    try {
+        const updatedCat = await Cat.findByIdAndUpdate(
+            req.params.catId,
+            req.body,
+            { new: true }
+        );
+
+        if (!updatedCat) {
+            return res.status(404).json({ message: 'Cat not found' });
+        }
+
+        res.json(updatedCat);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export const deleteCat = async (req, res, next) => {
+    const cat = await Cat.findById(req.params.catId);
+
+
+    if (!cat) {
+        return next(errorHandler(404, 'Cat not found!'));
+    };
+
+   
+    if (req.user.id !== cat.owner.toString()) {
+        return next(errorHandler(401, 'You can only update your own cats!'))
+    };
+
+    try {
+        await Cat.findByIdAndDelete(req.params.catId);
+        res.status(200).json('Cat has been deleted.')
+    } catch (error) {
+        next(error)
+    }
+
 };
