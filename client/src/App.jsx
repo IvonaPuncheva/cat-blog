@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Routes, Route } from "react-router-dom"
 
 import Header from "./components/header/Header"
@@ -8,30 +7,15 @@ import Login from "./components/login/Login"
 import CatList from "./components/cat-list/CatList"
 import CatCreate from "./components/cat-create/CatCreate"
 import CatDetails from "./components/cat-details/CatDetails"
-import { AuthContext } from './context/AuthContext';
+import { AuthContextProvider } from './context/AuthContext';
+import CatEdit from './components/cat-edit/CatEdit';
 
 
 function App() {
-  const [authState, setAuthState] = useState({});
-
-  const changeAuthState = (state) => {
-    localStorage.setItem('accessToken', state.accessToken);
-    
-    setAuthState(state);
-  }
-
-  const contextData = {
-    userId: authState._id,
-    email: authState.email,
-    accessToken: authState.accessToken,
-    isAuthenticated: !!authState.email,
-    changeAuthState,
-  };
   return (
-    <AuthContext.Provider value={contextData}>
+    <AuthContextProvider >
       <div id="box">
         <Header />
-
 
         <main id="main-content">
           <Routes>
@@ -41,12 +25,15 @@ function App() {
             <Route path='/cats' element={<CatList />} />
             <Route path='/cats/:catId/details' element={<CatDetails />} />
             <Route path='/cats/create' element={<CatCreate />} />
-
+            <Route path="/cats/:catId/edit" element={<CatEdit />} />        
           </Routes>
         </main>
       </div>
-    </AuthContext.Provider>
+    </AuthContextProvider>
   )
 }
 
 export default App
+
+
+
