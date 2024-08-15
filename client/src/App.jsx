@@ -12,6 +12,7 @@ import CatEdit from './components/cat-edit/CatEdit';
 import AuthGuard from "./components/guards/authGuard"
 import NotauthGuard from "./components/guards/notAuthGuard"
 import NotFound from "./components/notFound/NotFound"
+import Footer from "./components/footer/Footer"
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <div id="box">
         <Header />
         {/* <CatDetails catId="some-cat-id" />    prowerka */}
-        <main id="main-content">
+        <main className="flex-grow p-4">
           <Routes>
 
             <Route path='/' element={<Home />} />
@@ -40,14 +41,17 @@ function App() {
 
             <Route path='/cats/create' element={<CatCreate />} />
             <Route path="/cats/:catId/edit" element={<CatEdit />} />  
+           
 
             </Route>
 
             <Route path="*" element={<NotFound />} ></Route>
          
           </Routes>
+          <Footer />
         </main>
       </div>
+     
     </AuthContextProvider>
   )
 }

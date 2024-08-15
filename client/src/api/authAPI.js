@@ -19,7 +19,7 @@ export const logout = async () => {
     try {
         const response = await fetch('/api/auth/logout', {
             method: 'GET',
-            credentials: 'include', // Важно е за да се изпратят и получат кукитата
+            credentials: 'include', 
         });
 
         if (!response.ok) {

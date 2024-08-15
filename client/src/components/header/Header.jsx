@@ -2,11 +2,11 @@ import { useAuthContext } from "../../context/AuthContext.jsx";
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { logout } from '../../api/authAPI.js';
-import { FaBars, FaTimes } from 'react-icons/fa'; // Импортирайте иконите за менюто
+import { FaBars, FaTimes } from 'react-icons/fa'; 
 
 export default function Header() {
     const { isAuthenticated, changeAuthState } = useAuthContext();
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // Състояние за контролиране на отварянето на менюто
+    const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
     const navigate = useNavigate();
 

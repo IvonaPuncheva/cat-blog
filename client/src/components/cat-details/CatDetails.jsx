@@ -18,8 +18,7 @@ export default function CatDetails() {
     const createComment = useCreateComment();
     const [cat] = useGetOneCat(catId);
     const {user, email, isAuthenticated} = useAuthContext();
-    console.log('Current user:', user);
-    console.log('Current user email:', email);
+
 
     
     const {
@@ -27,7 +26,7 @@ export default function CatDetails() {
         submitHandler,
         values,
      } = useForm(initialValues, async ({ comment }) =>{
-        console.log('comment:',values.comment);
+       
         try{
          const newComment = await createComment(catId, email, comment);
          setComments(oldComments =>[...oldComments, newComment]);
@@ -41,7 +40,7 @@ export default function CatDetails() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
     const navigate = useNavigate();
-    console.log(isOwner);
+   
     const { userId } = useAuthContext(AuthContext);
 
     
@@ -53,7 +52,7 @@ export default function CatDetails() {
 
         }
     }, [cat, userId]);
-    console.log(isOwner);
+
 
 
 

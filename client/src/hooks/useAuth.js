@@ -33,7 +33,3 @@ export const useRegister = () => {
 };
 
 
-// export const useCurrentUser = () => {
-//     const { user } = useContext(AuthContext);
-//     return user;
-// };

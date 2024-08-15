@@ -1,23 +1,3 @@
-// import Cat from "../modals/cats.modal.js";
-
-
-
-
-// export const testCats = async (req, res, next) => {
-// res.json('successfully')
-// }
-
-
-// export const createCat = async (req, res, next) => {
-//     try {
-//         console.log('Request body:', req.body);
-//         const cat = await Cat.create(req.body);
-//         return res.status(201).json(cat);
-//     } catch (error) {
-//         console.error('Error creating cat:', error);
-//         return res.status(400).json({ success: false, message: error.message });
-//     }
-// };
 import mongoose from "mongoose";
 import Cat from "../modals/cats.modal.js";
 import { errorHandler } from "../utils/error.js";

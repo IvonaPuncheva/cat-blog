@@ -8,7 +8,7 @@ export function useForm(initialValues, submiCallback) {
   }, [initialValues]);
 
 
-  // TODO: da opravq tyk
+
   const changeHandler = (e) => {
     setValues(state => ({
       ...state,

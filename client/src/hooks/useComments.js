@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import commentsAPI from "../api/commentsAPI.js";
 import usePersistedState from "./usePersistedState.js";
 

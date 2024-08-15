@@ -19,9 +19,7 @@ export const AuthContext = createContext({
     setAuthState(state);
     
   }
-  // useEffect(() => {
-  //   console.log('Current authState:', authState);
-  // }, [authState]);
+ 
   
   const contextData = {
     user: authState,
