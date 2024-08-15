@@ -11,7 +11,6 @@ import { AuthContextProvider } from './context/AuthContext';
 import CatEdit from './components/cat-edit/CatEdit';
 import AuthGuard from "./components/guards/authGuard"
 import NotauthGuard from "./components/guards/notAuthGuard"
-import NotFound from "./components/notFound/NotFound"
 
 
 function App() {
@@ -40,10 +39,6 @@ function App() {
 
             <Route path='/cats/create' element={<CatCreate />} />
             <Route path="/cats/:catId/edit" element={<CatEdit />} />  
-
-            </Route>
-
-            <Route path="*" element={<NotFound/>}>
 
             </Route>
          
