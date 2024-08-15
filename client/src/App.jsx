@@ -16,7 +16,7 @@ function App() {
     <AuthContextProvider >
       <div id="box">
         <Header />
-
+        {/* <CatDetails catId="some-cat-id" />    prowerka */}
         <main id="main-content">
           <Routes>
             <Route path='/' element={<Home />} />
@@ -25,7 +25,8 @@ function App() {
             <Route path='/cats' element={<CatList />} />
             <Route path='/cats/:catId/details' element={<CatDetails />} />
             <Route path='/cats/create' element={<CatCreate />} />
-            <Route path="/cats/:catId/edit" element={<CatEdit />} />        
+            <Route path="/cats/:catId/edit" element={<CatEdit />} />  
+         
           </Routes>
         </main>
       </div>

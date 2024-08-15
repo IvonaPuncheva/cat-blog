@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react"
 import usePersistedState from "../hooks/usePersistedState";
+import { useEffect } from "react";
 
 export const AuthContext = createContext({
     userId: '',
@@ -18,7 +19,12 @@ export const AuthContext = createContext({
     setAuthState(state);
     
   }
+  // useEffect(() => {
+  //   console.log('Current authState:', authState);
+  // }, [authState]);
+  
   const contextData = {
+    user: authState,
     userId: authState._id,
     email: authState.email,
     accessToken: authState.accessToken,

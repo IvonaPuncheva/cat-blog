@@ -1,5 +1,4 @@
 
-import { useAuthContext } from "../../context/AuthContext.jsx";
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import commentsAPI from "../../api/commentsAPI.js";
@@ -8,9 +7,13 @@ import catsAPI from "../../api/catsAPI.js";
 // import { useCurrentUser } from "../../hooks/useAuth.js"; // Добав
 import { useForm } from '../../hooks/useForm.js'
 import {useCreateComment, useGetAllComments} from "../../hooks/useComments.js";
+import { useAuthContext } from "../../context/AuthContext.jsx";
 
+
+ 
 const initialValues = {
     comment: '',
+    // email: '',
 };
 
 export default function CatDetails() {
@@ -18,19 +21,29 @@ export default function CatDetails() {
     const [comments, setComments] = useGetAllComments(catId);
     const createComment = useCreateComment();
     const [cat] = useGetOneCat(catId);
-    const {isAuthenticated} = useAuthContext();
+    const {user, email, isAuthenticated} = useAuthContext();
+    console.log('Current user:', user);
+    console.log('Current user email:', email);
+
+    if (!isAuthenticated) {
+        return <p>Please log in to view and add comments.</p>;
+      }
+    
     const {
         changeHandler,
         submitHandler,
         values,
      } = useForm(initialValues, async ({ comment }) =>{
+        console.log('comment:',values.comment);
         try{
-         const newComment = await createComment(catId, comment);
+         const newComment = await createComment(catId, email, comment);
          setComments(oldComments =>[...oldComments, newComment]);
         }catch(err){
             console.log(err.message);
         }
     });
+
+
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
@@ -87,7 +100,7 @@ export default function CatDetails() {
                         {comments.map(comment => (
                                 <li key={comment._id} className="comment mb-2">
                                     <p className="text-gray-700">
-                                        <span className="font-bold">{comment.author.email}:</span> {comment.text}
+                                        <span className="font-bold">{comment.email}:</span> {comment.text}
                                     </p>
                                 </li>
                             ))
@@ -141,6 +154,7 @@ export default function CatDetails() {
                 <label className="block text-lg font-semibold mb-2">Add new comment:</label>
                 <form className="form space-y-4" onSubmit={submitHandler}>
                     <textarea
+                        type="text"
                         name="comment"
                         placeholder="Comment......"
                         className="w-full p-3 border border-gray-300 rounded"

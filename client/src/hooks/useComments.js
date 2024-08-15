@@ -3,7 +3,7 @@ import commentsAPI from "../api/commentsAPI.js";
 
 
 export function useCreateComment() {
-    const createHandler = (catId, comment) => commentsAPI.create(catId, comment);
+    const createHandler = (catId, email, comment) => commentsAPI.create(catId,email, comment);
 
     return createHandler;
 }
