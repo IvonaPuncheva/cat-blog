@@ -10,7 +10,6 @@ import { AuthContext, useAuthContext } from "../../context/AuthContext.jsx";
  
 const initialValues = {
     comment: '',
-    // email: '',
 };
 
 export default function CatDetails() {
@@ -22,9 +21,6 @@ export default function CatDetails() {
     console.log('Current user:', user);
     console.log('Current user email:', email);
 
-    if (!isAuthenticated) {
-        return <p>Please log in to view and add comments.</p>;
-      }
     
     const {
         changeHandler,

@@ -1,22 +1,21 @@
 import requester from "./requester"
 
-const BASE_URL = 'http://localhost:3000/jsonstore/cats/'
+const BASE_URL = 'http://localhost:3000/api/comments';
 
-const buildUrl = (catId) => `${BASE_URL}/${catId}/comments`;
-const create = async (catId, username, text) => requester.post(buildUrl(catId), { catId, username, text });
+const create = (catId, email, text) => 
+  requester.post(`${BASE_URL}/${catId}`, { catId, email, text });
 
-const getAll = async(catId) => {
-  const result = await requester.get(buildUrl(catId));
-
-    const comments = Object.values(result);
-
-    return comments;
+const getAll = (catId) => {
+  const params = new URLSearchParams({
+    where: `catId="${catId}"`,
+    load: `author=_ownerId:users`
+  });
+  return requester.get(`${BASE_URL}?${params.toString()}`);
 };
 
 const commentsAPI = {
     create,
     getAll
-}
+};
 
 export default commentsAPI;
-

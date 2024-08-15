@@ -8,9 +8,8 @@ import listingRouter from './routes/listing.route.js';
 import catsRouter from './routes/cats.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import catRouter from './routes/cats.route.js'
-
 import commentsRoutes from './routes/comment.route.js'
+
 dotenv.config();
 
 mongoose
@@ -34,7 +33,6 @@ app.use(cookieParser());
 
 app.use(cors(corsOptions));
 
-app.use('/jsonstore/cats', commentsRoutes);
 
 app.listen(3000, () => console.log('app listening on port 3000'));
 
@@ -42,7 +40,8 @@ app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
 app.use('/api/cats', catsRouter);
-app.use('/api/:catId', catRouter);
+app.use('/api/comments', commentsRoutes);
+
 
 app.use(express.static(path.join(__direname, '/client/dist')));
 
