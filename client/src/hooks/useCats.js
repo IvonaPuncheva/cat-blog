@@ -42,11 +42,6 @@ export function useCreateCat() {
     return catCreateHandler;
 }
 
-// export function useEditCat(){
-//     const catEditHandler = (catData) => catsAPI.edit(catData);
-//     return catEditHandler;
-// }
-
 export const useEditCat = () => {
     return async (catId, values) => {
         const response = await fetch(`/api/cats/${catId}/edit`, {
