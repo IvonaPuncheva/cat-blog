@@ -35,7 +35,7 @@ SoftUni React Course Project
 ## 6. API Hooks
 - [x] Form Hook
 - [x] CatAPI Hooks
-- [ ] Comment Hooks
+- [x] Comment Hooks
 ## 7.Authentication
 - [x] Auth API
   - [x] Login
@@ -57,10 +57,10 @@ SoftUni React Course Project
 - [x] Create cat
   - [x]  API function
   - [x]  Create hook
-- [ ]  Latest cats
+- [x]  Latest cats
 - [x]  Edit cat
 - [x]  Delete cat
 ## 9. Refactoring
 -[x] Extract authData state from App component
 -[x] Persist auth state
--[] Comments
+-[x] Comments

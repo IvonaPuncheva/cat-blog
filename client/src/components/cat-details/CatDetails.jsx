@@ -1,13 +1,10 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import commentsAPI from "../../api/commentsAPI.js";
 import { useGetOneCat } from "../../hooks/useCats";
 import catsAPI from "../../api/catsAPI.js";
-// import { useCurrentUser } from "../../hooks/useAuth.js"; // Добав
 import { useForm } from '../../hooks/useForm.js'
 import {useCreateComment, useGetAllComments} from "../../hooks/useComments.js";
-import { useAuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext, useAuthContext } from "../../context/AuthContext.jsx";
 
 
  
@@ -48,18 +45,19 @@ export default function CatDetails() {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
     const navigate = useNavigate();
-    // const { userId } = useContext(AuthContext);
+    console.log(isOwner);
+    const { userId } = useAuthContext(AuthContext);
 
     
 
-    // useEffect(() => {
+    useEffect(() => {
      
-    //     if (cat && userId) {
-    //         setIsOwner(cat.owner?._id === userId);
+        if (cat && userId) {
+            setIsOwner(cat.owner?._id === userId);
 
-    //     }
-    // }, [cat, userId]);
-    // console.log(isOwner);
+        }
+    }, [cat, userId]);
+    console.log(isOwner);
 
 
 
