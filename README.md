@@ -75,7 +75,7 @@ confirm password should match with password which is checked by error handling f
 
 - **Cat Edit Page** : This page is available for logged in users only that are the creator of the cat. It has all the same validators as the ones in the CatCreate component. Error handling is implemented there as well. If the edit is successful the user will be redirected to the details page od the edited cat.
 
-- **Delete**: Users can delete their own listings.
+- **Delete Page**: Users can delete their own listings.
   
 ## Summary
 
