@@ -58,10 +58,11 @@ export default function CatEdit() {
                         className='border p-3 rounded-lg'
                         id="age"
                         name="age"
-                        min="1"
+                        min="0"
+                        step="0.01"
                         value={values.age}
                         onChange={changeHandler}
-                        placeholder="1"
+                        placeholder="0.0"
                         required
                     />
 
