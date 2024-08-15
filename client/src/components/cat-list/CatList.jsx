@@ -30,23 +30,6 @@ useEffect(() => {
   };
 }, []);
 
-//     return (
-
-// <section id="catalog-page" className="p-6">
-//   <h1 className="text-3xl font-bold text-[#2c3e50] mb-12 text-center">All Cats</h1>
-//   {cats.length > 0 ? (
-//     <div className="flex flex-wrap justify-center gap-4">
-//       {cats.map(cat => (
-//         <CatListItem key={cat._id} {...cat} />
-//       ))}
-//     </div>
-//   ) : (
-//     <h3 className="text-xl text-gray-500">No cats yet</h3>
-//   )}
-// </section>
-
-
-//     );
 
 return (
   <section id="catalog-page" className="p-6">
