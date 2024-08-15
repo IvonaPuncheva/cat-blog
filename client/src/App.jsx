@@ -9,6 +9,8 @@ import CatCreate from "./components/cat-create/CatCreate"
 import CatDetails from "./components/cat-details/CatDetails"
 import { AuthContextProvider } from './context/AuthContext';
 import CatEdit from './components/cat-edit/CatEdit';
+import AuthGuard from "./components/guards/authGuard"
+import NotauthGuard from "./components/guards/notAuthGuard"
 
 
 function App() {
@@ -19,13 +21,26 @@ function App() {
         {/* <CatDetails catId="some-cat-id" />    prowerka */}
         <main id="main-content">
           <Routes>
+
             <Route path='/' element={<Home />} />
+
+            <Route element={<NotauthGuard />}>
+              
+
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+
+            </Route>
+
             <Route path='/cats' element={<CatList />} />
             <Route path='/cats/:catId/details' element={<CatDetails />} />
+
+            <Route element={<AuthGuard />}>
+
             <Route path='/cats/create' element={<CatCreate />} />
             <Route path="/cats/:catId/edit" element={<CatEdit />} />  
+
+            </Route>
          
           </Routes>
         </main>
