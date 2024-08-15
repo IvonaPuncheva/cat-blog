@@ -141,7 +141,7 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { useCreateCat } from "../../hooks/useCats";
-import {  useAuthContext } from "../../context/AuthContext.jsx";
+import { useAuthContext } from "../../context/AuthContext.jsx";
 
 
 const initialValues = {
@@ -150,7 +150,7 @@ const initialValues = {
     age: '',
     imageUrl: '',
     description: '',
-    
+
 };
 
 export default function CatCreate() {
@@ -164,15 +164,15 @@ export default function CatCreate() {
 
     const createHandler = async (values) => {
         try {
-          
+
             const { _id: catId } = await createCat(values);
             navigate(`/cats`);
-        //     const result = await createCat(values);
-        // console.log('Cat created:', result);
-        // navigate(`/cats/${catId}/details`);
-        
+            //     const result = await createCat(values);
+            // console.log('Cat created:', result);
+            // navigate(`/cats/${catId}/details`);
+
         } catch (err) {
-            console.log('Error creating cat:',err.message);
+            console.log('Error creating cat:', err.message);
         }
     };
 
@@ -218,10 +218,11 @@ export default function CatCreate() {
                         className='border p-3 rounded-lg'
                         id="age"
                         name="age"
-                        min="1"
+                        min="0"
+                        step="0.01"
                         value={values.age}
                         onChange={changeHandler}
-                        placeholder="1"
+                        placeholder="0.0"
                         required
                     />
 
