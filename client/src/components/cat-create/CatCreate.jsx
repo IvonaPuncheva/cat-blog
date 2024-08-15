@@ -141,8 +141,8 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { useCreateCat } from "../../hooks/useCats";
-import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
+import {  useAuthContext } from "../../context/AuthContext.jsx";
+
 
 const initialValues = {
     name: '',
@@ -155,7 +155,7 @@ const initialValues = {
 
 export default function CatCreate() {
 
-    const { userId } = useContext(AuthContext);
+    const { userId } = useAuthContext();
 
     const navigate = useNavigate();
     const createCat = useCreateCat();
